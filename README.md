@@ -97,8 +97,8 @@ Project blueprints are available in the repository for reference:
 
 | Name | Role | Contact |
 | :--- | :--- | :--- |
-| **[AHUMUZA SAMUEL]** | [Your Role/Focus] | [https://github.com/Samuel-ahumuza] |
-| **[KASOZI JOEL]** | [Teammate Role/Focus] | [Teammate GitHub/Email] |
+| **AHUMUZA SAMUEL** | [Your Role/Focus] | https://github.com/Samuel-ahumuza / ahumuzas515@gmail.com |
+| **KASOZI JOEL** | [Teammate Role/Focus] | https://github.com/KasoziJoel/Email|
 
 ---
 
