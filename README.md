@@ -1,9 +1,8 @@
 # [Project Name: E.g., GCDL Stock & Procurement Management System]
 
 ## 📝 Project Description
-=======
 This application is designed to manage stock procurement, sales, and credit tracking across multiple branches for [Briefly describe the business/project, e.g., a grain dealer or commodity broker]. It is a backend API that serves [mobile/web application] requests based on defined business logic.
-=======
+
 
 
 ### Key Features
