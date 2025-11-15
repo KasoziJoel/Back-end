@@ -1,8 +1,10 @@
 # [Project Name: E.g., GCDL Stock & Procurement Management System]
 
 ## 📝 Project Description
+=======
+This application is designed to manage stock procurement, sales, and credit tracking across multiple branches for [Briefly describe the business/project, e.g., a grain dealer or commodity broker]. It is a backend API that serves [mobile/web application] requests based on defined business logic.
+=======
 
-This application is designed to manage stock procurement, sales, and credit tracking across multiple branches for Golden Crop Distributors Ltd. It is a backend API that serves [mobile/web application] requests based on defined business logic.
 
 ### Key Features
 * **User & Role Management:** Secure authentication and authorization for different user roles (e.g., Agent, Manager).
@@ -97,12 +99,20 @@ Project blueprints are available in the repository for reference:
 
 | Name | Role | Contact |
 | :--- | :--- | :--- |
+<<<<<<< HEAD
+| **[AHUMUZA SAMUEL]** | [Your Role/Focus] | [https://github.com/Samuel-ahumuza] |
+| **[KASOZI JOEL]** | [Teammate Role/Focus] | [Teammate GitHub/Email] |
+=======
 | **AHUMUZA SAMUEL** | [Your Role/Focus] | https://github.com/Samuel-ahumuza / ahumuzas515@gmail.com |
 | **KASOZI JOEL** | [Teammate Role/Focus] | https://github.com/KasoziJoel/Email|
+>>>>>>> 941d4549dd1acb87b8f018df5c358e9ad468c422
 
 ---
 
 ## 📜 License
 
 This project is licensed under the **[e.g., MIT] License** - see the `LICENSE.md` file for details.
+<<<<<<< HEAD
+=======
 
+>>>>>>> 941d4549dd1acb87b8f018df5c358e9ad468c422
