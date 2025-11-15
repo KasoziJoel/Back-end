@@ -55,7 +55,7 @@ async function recordNewProcurement(req, res) {
             SET Current_tonnage = Current_tonnage + ?, Last_updated = NOW() 
             WHERE Produce_ID = ? AND Branch_ID = ?; 
         `;
-    // 🚨 FIX APPLIED: Changed 'Last_Update' to 'Last_updated' to match the schema.
+  
 
     const updateValues = [tonnage, produceId, branchId];
     const [updateResult] = await connection.execute(updateQuery, updateValues);

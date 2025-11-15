@@ -8,7 +8,7 @@ const authRoutes = require('./controllers/routes/authRoutes');
 const procurementRoutes = require('./controllers/routes/procurementRoutes'); 
 
 // Import NEW routers from the ROOT directory (where they currently are)
-const salesRoutes = require('./salesRoutes'); 
+const salesRoutes = require('./controllers/routes/salesRoutes'); 
 
 // We need these for the login route (though not directly used here, good for context)
 const bcrypt = require('bcrypt');
