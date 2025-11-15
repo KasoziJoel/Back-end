@@ -7,9 +7,9 @@ require('dotenv').config(); // Load environment variables from .env
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
+    password: process.env.DB_PASSWORD || 'root',
     database: process.env.DB_NAME || 'GCDL_DB',
-    port: process.env.DB_PORT || 3307, // CRITICAL: Use your custom port!
+    port: process.env.DB_PORT || 3306, // CRITICAL: Use your custom port!
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0

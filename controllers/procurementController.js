@@ -1,82 +1,105 @@
-// // controllers/procurementController.js
+// ProcurementController.js
 
-// async function recordNewProcurement(req, res) {
-//     // ... all the code for validation and SQL execution goes here
-// }
-
-// module.exports = {
-//     recordNewProcurement
-// };
-// controllers/procurementController.js: It uses the connection from db.js to run the two critical database actions within a transaction
-
-const dbPool = require('../config/db'); // 1. Import the database pool you just created
+const dbPool = require("./routes/config/db");
 
 async function recordNewProcurement(req, res) {
-    // Data read from the request
-    const { 
-        dealerId, 
-        branchId, 
-        tonnage, 
-        costPerTon, 
-        produceType 
-    } = req.body; 
+  // 1. Extract and Validate Input Data
+  const {
+    dealerId,
+    branchId,
+    tonnage, // Variable name: tonnage (lowercase t)
+    costPerTon,
+    produceName, // e.g., 'Maize'
+  } = req.body;
 
-    // Basic Validation (from your flowchart)
-    if (!dealerId || !tonnage || !branchId || !costPerTon || !produceType) {
-        return res.status(400).send({ message: "Missing required procurement data." });
+  // Error Handling and Validation (Milestone Four)
+  if (!dealerId || !tonnage || !branchId || !costPerTon || !produceName) {
+    return res
+      .status(400)
+      .send({ message: "Missing required procurement data." });
+  }
+
+  let connection;
+
+  try {
+    connection = await dbPool.getConnection();
+    // Start a transaction: Ensures both INSERT and UPDATE succeed or both fail (Atomicity).
+    await connection.beginTransaction();
+
+    // 2. Look up the Produce_ID from the Produce Name
+    const [produceResult] = await connection.execute(
+      `SELECT Produce_ID FROM produce WHERE Name = ?;`,
+      [produceName]
+    );
+
+    if (produceResult.length === 0) {
+      // Throwing a dedicated error here is great for debugging (Milestone Four)
+      throw new Error(`Produce type '${produceName}' not found.`);
     }
-    
-    let connection; // Declare connection for transaction handling
+    const produceId = produceResult[0].Produce_ID;
 
-    try {
-        // Start a transaction to ensure both queries succeed or fail together (CRITICAL for stock updates)
-        connection = await dbPool.getConnection();
-        await connection.beginTransaction(); 
-
-        // --------------------------------------------------------------------
-        // QUERY 1: Insert into the PROCUREMENT Table (Your first write action)
-        // --------------------------------------------------------------------
-        const insertQuery = `
+    // 3. Insert the new record into the PROCUREMENT Table
+    const insertQuery = `
             INSERT INTO procurement 
-            (Dealer_ID, Branch_ID, Tonnage, Cost_per_ton, Type) 
-            VALUES (?, ?, ?, ?, ?); 
+            (Dealer_ID, Branch_ID, Tonnage, Cost_per_ton, Produce_ID, Date) 
+            VALUES (?, ?, ?, ?, ?, NOW()); 
         `;
-        const insertValues = [dealerId, branchId, tonnage, costPerTon, produceType];
-        await connection.execute(insertQuery, insertValues);
-        
-        // --------------------------------------------------------------------
-        // QUERY 2: Update the STOCK Table (Your second write action)
-        // --------------------------------------------------------------------
-        // We assume 'produce' table has a 'Name' column to find the ID.
-        const updateQuery = `
+
+    const insertValues = [dealerId, branchId, tonnage, costPerTon, produceId];
+
+    const [insertResult] = await connection.execute(insertQuery, insertValues);
+
+    // 4. Update the STOCK Table by increasing tonnage
+    const updateQuery = `
             UPDATE stock 
-            SET Tonnage = Tonnage + ? 
-            WHERE Produce_Name = ?; 
+            SET Current_tonnage = Current_tonnage + ?, Last_updated = NOW() 
+            WHERE Produce_ID = ? AND Branch_ID = ?; 
         `;
-        const updateValues = [tonnage, produceType]; // Update stock by adding the tonnage
-        await connection.execute(updateQuery, updateValues);
+    // 🚨 FIX APPLIED: Changed 'Last_Update' to 'Last_updated' to match the schema.
 
-        // If both queries succeed: Commit the transaction
-        await connection.commit(); 
+    const updateValues = [tonnage, produceId, branchId];
+    const [updateResult] = await connection.execute(updateQuery, updateValues);
 
-        res.status(201).send({ message: "Procurement recorded and stock updated successfully." });
-
-    } catch (error) {
-        // If anything fails, rollback the transaction to undo any partial changes
-        if (connection) {
-            await connection.rollback();
-        }
-        console.error("Database Transaction Failed:", error);
-        res.status(500).send({ message: "Procurement failed due to a server error. Transaction rolled back." });
-
-    } finally {
-        // Release the connection back to the pool
-        if (connection) {
-            connection.release();
-        }
+    // Ensure the update was successful (i.e., the stock row existed)
+    if (updateResult.affectedRows === 0) {
+      // NOTE: If you need to handle initial stock records, you would INSERT here.
+      throw new Error(
+        `Stock record for Produce ID ${produceId} at Branch ID ${branchId} was not updated (Missing initial stock row).`
+      );
     }
+
+    // 5. Commit the transaction (Both queries succeeded)
+    await connection.commit();
+
+    res.status(201).json({
+      message: "Procurement recorded and stock updated successfully.",
+      procurementId: insertResult.insertId,
+    });
+  } catch (error) {
+    // 6. Rollback the transaction on failure
+    if (connection) {
+      await connection.rollback();
+    }
+    console.error("Database Transaction Failed:", error.message);
+
+    // Handling the error if the initial stock record is missing (from the thrown error above)
+    let status = 500;
+    if (error.message.includes("Stock record for Produce ID")) {
+      status = 400; // Return a client-side error if the stock row is missing
+    }
+
+    // Return a cleaner, more readable error message (Milestone Four: Error Handling)
+    res.status(status).json({
+      message: `Procurement failed. Transaction rolled back. Reason: ${error.message}`,
+    });
+  } finally {
+    // 7. Release the connection back to the pool
+    if (connection) {
+      connection.release();
+    }
+  }
 }
 
 module.exports = {
-    recordNewProcurement
+  recordNewProcurement,
 };

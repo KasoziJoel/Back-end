@@ -2,8 +2,9 @@
   "name": "back-end",
   "version": "1.0.0",
   "description": "Group work",
-  "main": "index.js",
+  "main": "appp.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
