@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-// FINAL PATH: Go up two levels (from 'routes' to 'controllers', then to 'Back-end' root)
-// This path works if authController.js is directly inside the 'Back-end' root folder.
-const authController = require("../authController");
+// Assuming authController.js is in the parent directory (controllers)
+// The correct relative path is almost certainly `../authController`
+// If this still fails, try explicitly navigating:
+// const authController = require("../authController.js"); // Adding the extension might help VSCode resolve it.
+const authController = require("../authController.js"); 
 
 // Login Route: Maps the path to the login function
 router.post("/login", authController.login);

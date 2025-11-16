@@ -1,37 +1,52 @@
 const dbPool = require('./routes/config/db'); 
-
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
 const JWT_SECRET = process.env.JWT_SECRET || "a_secure_default_secret_for_gcdl";
 
 // Handles POST /login logic
 async function login(req, res) {
-    const { UserName, Password } = req.body;
+    // Extract potential username/password from request body (handles both capitalized and lowercase keys)
+    const { UserName, Password, username , password } = req.body;
+    
+    // Determine the final values to use for database lookup and comparison
+    const finalUsername = UserName || username; 
+    const finalPassword = Password || password;
 
-    if (!UserName || !Password) {
-        return res.status(400).json({ message: "Username and password are required." });
+    if (!finalUsername || !finalPassword) {
+        return res.status(400).json({ message: 'Username and password are required.' });
     }
 
     let connection;
     try {
+        // --- DIAGNOSTIC LOG ---
+        console.log(`Attempting login for username: ${finalUsername}`);
+
         connection = await dbPool.getConnection();
         const [rows] = await connection.execute(
+            // Use the final resolved username to query the 'users' table
             "SELECT * FROM users WHERE UserName = ?",
-            [UserName]
+            [finalUsername]
         );
 
         if (rows.length === 0) {
+            console.log(`Login Failed (401): User "${finalUsername}" not found in database.`);
             return res.status(401).json({ message: "Invalid credentials" });
         }
 
         const user = rows[0];
-        const passwordMatch = await bcrypt.compare(Password, user.Password);
+        
+        // --- DIAGNOSTIC LOG ---
+        console.log(`User found. Database Hash Status: ${user.Password ? 'Present' : 'Missing'}`);
+
+        // Perform password comparison using the final resolved password
+        const passwordMatch = await bcrypt.compare(finalPassword, user.Password);
 
         if (!passwordMatch) {
+            console.log(`Login Failed (401): Password mismatch for user "${finalUsername}".`);
             return res.status(401).json({ message: "Invalid credentials" });
         }
 
+        // Login success
         const tokenPayload = {
             userId: user.User_ID,
             role: user.Role,
@@ -41,6 +56,8 @@ async function login(req, res) {
         const token = jwt.sign(tokenPayload, JWT_SECRET, {
             expiresIn: "24h",
         });
+        
+        console.log(`Login Succeeded (200) for user: ${finalUsername}`);
 
         res.status(200).json({
             message: "Login successful!",
@@ -53,14 +70,15 @@ async function login(req, res) {
             },
         });
     } catch (error) {
-        console.error("Login database error:", error);
+        // This catch block runs for database connection errors or uncaught exceptions
+        console.error("Login database error (500):", error);
         res.status(500).json({ message: "Internal server error" });
     } finally {
         if (connection) connection.release();
     }
 }
 
-// Handles POST /register logic
+// Handles POST /register logic (left unchanged)
 async function registerUser(req, res) {
     const { UserName, Password, Role, Branch_ID } = req.body;
 
