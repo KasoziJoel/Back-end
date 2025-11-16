@@ -1,36 +1,53 @@
-// app.js (The Main Server File)
-
-// 1. Get packages and setup Express
+//app.js
 const express = require('express');
 const dotenv = require('dotenv');
-// Import existing, correctly located routers
-const authRoutes = require('./controllers/routes/authRoutes');
-const procurementRoutes = require('./controllers/routes/procurementRoutes'); 
-
-// Import NEW routers from the ROOT directory (where they currently are)
-const salesRoutes = require('./salesRoutes'); 
-
-// We need these for the login route (though not directly used here, good for context)
+const cors = require('cors');
+// NOTE: bcrypt and jwt imports are useful for context but aren't strictly needed in app.js if they are only used in authController.js
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
+
+const corsOptions = {
+    origin: 'http://localhost:5173', 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204
+};
+// 1.Route Imports
+// All route files (authRoutes, salesRoutes, etc.) are located in the './controllers/routes/' directory.
+const authRoutes = require('./controllers/routes/authRoutes');
+const salesRoutes = require('./controllers/routes/salesRoutes');
+const procurementRoutes = require('./controllers/routes/procurementRoutes');
+const reportingRoutes = require('./controllers/routes/reportingRoutes');
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000; 
 
+app.use(cors(corsOptions)); 
+app.use(express.json());
+ // Allows parsing JSON bodies (for req.body)
+ // Simple test route
+app.get('/auth/test', (req, res) => {
+    res.status(200).json({ message: 'Server running', status: 'OK' });
+});
+
+
 // 2. Middleware
-app.use(express.json()); // Allows parsing JSON bodies (for req.body)
 
-// 3. Routing
+// 3. Routing Setup
 // A. User Authentication (Handles /login and /register)
-app.use('/', authRoutes);
+app.use('/auth', authRoutes);
 
-// B. Core System Routes: Procurement (Handles /procurement/record)
+// B. Core System Routes: Procurement
 app.use('/procurement', procurementRoutes); 
 
-// C. Core System Routes: Sales (Handles /sales/record)
+// C. Core System Routes: Sales
 app.use('/sales', salesRoutes); 
+
+// D. Manager Reports (Milestone 3)
+app.use('/reporting', reportingRoutes);
 
 // 4. Start the server
 app.listen(PORT, () => {
