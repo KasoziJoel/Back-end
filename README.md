@@ -44,16 +44,14 @@ Follow these steps to get a development environment up and running on your local
 
 2.  **Install Dependencies:**
     ```bash
-    # If using Node.js
+
     npm install
 
-    # OR if using PHP
-    composer install
     ```
 
 3.  **Database Setup:**
     * **Start MySQL** through your XAMPP/MAMP control panel.
-    * Open `http://localhost/phpmyadmin` (or similar tool).
+    * Open `http://localhost/3000`.
     * Create a new database named: **`[GCDL_DB]`**.
     * **Import the Schema:** Import the `[schema_file_name.sql]` file provided by the team lead to create the necessary tables (`Users`, `Produce`, etc.).
 
@@ -67,21 +65,19 @@ Follow these steps to get a development environment up and running on your local
         # .env file content
         DB_HOST=localhost
         DB_USER=root
-        DB_PASSWORD= [blank or root, depending on your XAMPP/MAMP setup]
-        DB_DATABASE=[Your Database Name]
-        APP_PORT=[Your App Port, e.g., 3000 or 8000]
+        DB_PASSWORD= *****
+        DB_DATABASE=gcdl
+        APP_PORT=3000 
         ```
 
 5.  **Run the Application:**
     ```bash
-    # If using Node.js
+    
     npm start
 
-    # OR if using PHP
-    php artisan serve
-    ```
+ 
 
-The application should now be running at `http://localhost:[APP_PORT]`.
+The application should now be running at `http://localhost:3000`.
 
 ---
 
@@ -89,8 +85,8 @@ The application should now be running at `http://localhost:[APP_PORT]`.
 
 Project blueprints are available in the repository for reference:
 
-* **Database Schema:** `GCDL ER Diagram.drawio`
-* **Business Logic:** `PROCUREMENT AND STOCK UPDATE FLOWCHART.drawio` and `SALE, CREDIT,MGT AND STOCK DEDUCTION FLOWCHARTS.drawio`
+* **Database Schema:** `https://drive.google.com/file/d/1P3drwVy4IKuliWf76YE027W-AlUYbbXH/view?usp=sharing`
+* **Business Logic:** `https://drive.google.com/file/d/1ydngXQdVME20yRhujI4cDLLqFq0NwSY6/view?usp=drive_link` and `https://drive.google.com/file/d/1a76PWu-Ukh6wEBCqXFlZsnU7fQRVrFN0/view?usp=sharing`
 
 ---
 
@@ -101,14 +97,7 @@ Project blueprints are available in the repository for reference:
 <<<<<<< HEAD
 | **[AHUMUZA SAMUEL]** | | https://github.com/Samuel-ahumuza |
 | **[KASOZI JOEL]** | | https://github.com/KasoziJoel |
-
+>>>>>>>
 
 ---
 
-## 📜 License
-
-This project is licensed under the **[e.g., MIT] License** - see the `LICENSE.md` file for details.
-<<<<<<< HEAD
-=======
-
->>>>>>> 941d4549dd1acb87b8f018df5c358e9ad468c422
