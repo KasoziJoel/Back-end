@@ -103,7 +103,7 @@ Project blueprints are available in the repository for reference:
 | **[KASOZI JOEL]** | [Teammate Role/Focus] | [Teammate GitHub/Email] |
 =======
 | **AHUMUZA SAMUEL** | [Your Role/Focus] | https://github.com/Samuel-ahumuza / ahumuzas515@gmail.com |
-| **KASOZI JOEL** | [Teammate Role/Focus] | https://github.com/KasoziJoel/Email|
+| **KASOZI JOEL** | [Teammate Role/Focus] | https://github.com/KasoziJoel/Email|joelmet256@gmail.com |
 >>>>>>> 941d4549dd1acb87b8f018df5c358e9ad468c422
 
 ---
