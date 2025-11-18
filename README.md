@@ -1,4 +1,4 @@
-# [Project Name: E.g., GCDL Stock & Procurement Management System]
+# GCDL Stock & Procurement Management System
 
 ## 📝 Project Description
 This application is designed to manage stock procurement, sales, and credit tracking across multiple branches for [Briefly describe the business/project, e.g., a grain dealer or commodity broker]. It is a backend API that serves [mobile/web application] requests based on defined business logic.
@@ -19,8 +19,8 @@ This application is designed to manage stock procurement, sales, and credit trac
 | Component | Technology | Description |
 | :--- | :--- | :--- |
 | **Backend** | [Node.js / Express or PHP / Laravel] | The server-side framework handling API endpoints and business logic. |
-| **Database** | **MySQL / MariaDB** | Relational database management system used for persistent data storage. |
-| **Development** | HeidiSQL / [Your IDE] | Tools used for database management and code development. |
+| **Database** | MySQL  | Relational database management system used for persistent data storage. |
+| **Development** | HeidiSQL /  | Tools used for database management and code development. |
 | **Host (Local)** | **XAMPP / MAMP** | Local environment used for development and testing. |
 
 ---
@@ -96,15 +96,12 @@ Project blueprints are available in the repository for reference:
 
 ## 👥 Team & Authors
 
-| Name | Role | Contact |
-| :--- | :--- | :--- |
+| Name | | Contact |
+| :--- | | :--- |
 <<<<<<< HEAD
-| **[AHUMUZA SAMUEL]** | [Your Role/Focus] | [https://github.com/Samuel-ahumuza] |
-| **[KASOZI JOEL]** | [Teammate Role/Focus] | [Teammate GitHub/Email] |
-=======
-| **AHUMUZA SAMUEL** | [Your Role/Focus] | https://github.com/Samuel-ahumuza / ahumuzas515@gmail.com |
-| **KASOZI JOEL** | [Teammate Role/Focus] | https://github.com/KasoziJoel/Email|joelmet256@gmail.com |
->>>>>>> 941d4549dd1acb87b8f018df5c358e9ad468c422
+| **[AHUMUZA SAMUEL]** | | https://github.com/Samuel-ahumuza |
+| **[KASOZI JOEL]** | | https://github.com/KasoziJoel |
+
 
 ---
 
