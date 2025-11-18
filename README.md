@@ -85,15 +85,14 @@ The application should now be running at `http://localhost:3000`.
 
 Project blueprints are available in the repository for reference:
 
-* **Database Schema:** `https://drive.google.com/file/d/1P3drwVy4IKuliWf76YE027W-AlUYbbXH/view?usp=sharing`
-* **Business Logic:** `https://drive.google.com/file/d/1ydngXQdVME20yRhujI4cDLLqFq0NwSY6/view?usp=drive_link` and `https://drive.google.com/file/d/1a76PWu-Ukh6wEBCqXFlZsnU7fQRVrFN0/view?usp=sharing`
+* **Database Schema:** https://drive.google.com/file/d/1P3drwVy4IKuliWf76YE027W-AlUYbbXH/view?usp=sharing
+* **Business Logic:** https://drive.google.com/file/d/1ydngXQdVME20yRhujI4cDLLqFq0NwSY6/view?usp=drive_link and https://drive.google.com/file/d/1a76PWu-Ukh6wEBCqXFlZsnU7fQRVrFN0/view?usp=sharing
 
 ---
 
 ## 👥 Team & Authors
 
-| Name | | Contact |
-| :--- | | :--- |
-| [AHUMUZA SAMUEL] | | https://github.com/Samuel-ahumuza |
-| [KASOZI JOEL] | | https://github.com/KasoziJoel |
+
+AHUMUZA SAMUEL https://github.com/Samuel-ahumuza 
+KASOZI JOEL https://github.com/KasoziJoel
 ---
