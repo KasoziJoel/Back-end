@@ -9,7 +9,6 @@ This application is designed to manage stock procurement, sales, and credit trac
 * **User & Role Management:** Secure authentication and authorization for different user roles (e.g., Agent, Manager).
 * **Procurement Tracking:** Record new stock acquisitions, tonnage, and cost details.
 * **Sales & Deduction:** Handle sales transactions and automatically deduct stock.
-* **Branch Management:** System supports managing and tracking stock across various physical branches.
 * **Credit/Dealers Management:** Tracks outstanding credit and manages dealer information.
 
 ---
@@ -31,7 +30,7 @@ Follow these steps to get a development environment up and running on your local
 
 ### Prerequisites
 * [Node.js / PHP / etc.] installed (Specify the exact version if needed: e.g., Node.js v18+)
-* **XAMPP** or **MAMP** installed and running (for the local MySQL server).
+
 
 ### Installation
 
